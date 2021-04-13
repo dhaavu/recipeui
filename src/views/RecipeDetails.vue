@@ -1,18 +1,37 @@
 <template>
 <div class="main">
    <div class="container">
-        <div v-if="editShow" class="edit-form">
+        <div v-if="editRecipe" class="edit-form">
             <form v-on:submit="updateRecipe">
+                <h2>Edit Recipe</h2>
+                <div class="inputs">
+                    <h3>Recipe Name:</h3>
                 <input type="text" name="name" id="name" v-model="name">
-                <input type="text" name="procedure" id="procedure" v-model="procedure">
+                <h3>Procedure:</h3>
+                <!-- <input type="text" name="procedure" id="procedure" v-model="procedure"> -->
+               <textarea name="procedure" id="procedure"  rows="15" v-model="procedure" ></textarea>
+                <h3>Image URL:</h3>
                 <input type="text" name="url" id="url" v-model="url">
-                <input type="text" name="id" id="id" v-model="id">
-                <button type="submit">Save</button>
-            </form>
+                <h3>Id:</h3>
+                <input readonly type="text" name="id" id="id" v-model="id">
+               
+                </div>
+                 <div class="action">
+                    <Button :buttonText="'Save'" :backgroundColor="'crimson'"></Button>
+                    <Button @click="cancelEdit" :buttonText="'Cancel'" :backgroundColor="'grey'"></Button>
+            
+                </div>
+           </form>
         </div>
-        <div class="read-view">
+        <div v-if="editRecipe == false" class="read-view">
             <img :src="url" alt="" style="">
-            <h2>{{name}}</h2>
+            <div class="title">
+                <h2>{{name}}</h2>
+                <span @click="editMode" class="material-icons material-icons-outlined">
+                 edit
+                </span>
+            </div>
+            
             <div class="procedure">
                 <p>{{procedure}}</p>
             </div>
@@ -38,11 +57,15 @@
     
 </template>
 <script>
-// import recipe from '../components/recipeDetails';
+import Button from "../components/button.vue"; 
+
 export default {
-//   components: { recipe }, 
+components:{
+    Button
+}, 
+
   props:{
-      editShow: {default: false}
+      
   }, 
   data(){ 
         return {
@@ -50,7 +73,8 @@ export default {
         name: String, 
         procedure: String, 
         url:String, 
-        ingredients:Array
+        ingredients:Array, 
+        editRecipe: false
         }
         
     }, 
@@ -59,6 +83,13 @@ export default {
         {
             e.preventDefault();
             console.log(this.name, this. procedure, this.url); 
+        }, 
+        editMode(){
+            this.editRecipe = true; 
+        }, 
+        cancelEdit()
+        {
+            this.editRecipe= false; 
         }
     }, 
     mounted(){
@@ -150,4 +181,64 @@ li{
 .ingredients h2{
     padding:20px; 
 }
+
+.title {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+input{
+   
+    height:30px; 
+    font-size: 20px;
+    border-radius: 5px;
+    padding:10px 20px; 
+}
+
+textarea{
+    font-family: inherit;
+    font-size: 20px;
+    border-radius: 5px;
+    padding:10px 20px; 
+}
+.inputs{
+   display:grid; 
+   grid-template-columns: 30% auto;
+   padding: 10px;
+   width:90%; 
+   text-align:right; 
+   grid-row-gap:20px; 
+   grid-column-gap:30px; 
+   align-items: center;
+   
+}
+
+.action{
+    display:flex; 
+    justify-content: space-around;
+    gap:30px;
+    margin:20px; 
+}
+
+.edit-form{
+    width:90%; 
+}
+
+@media only screen and (max-width: 768px) {
+    .inputs{
+   display:grid; 
+   grid-template-columns: auto;
+   
+
+   text-align:left; 
+   grid-row-gap:5px; 
+   grid-column-gap:10px; 
+   align-items: center;
+   
+}
+h3{
+    margin-bottom:0px; 
+}
+}
+
 </style>

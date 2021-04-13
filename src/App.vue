@@ -1,5 +1,5 @@
 <template>
-  <Header logoName="brunch_dining" :menuItems="menuItems"> </Header>
+  <Header  :menuItems="menuItems"> </Header>
   <router-view/>
 </template>
 <script>
@@ -28,12 +28,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #ffffff;
 
 }
 body{
   padding:0;
   margin: 0;
+  background: #1a1919;
 }
 
 </style>

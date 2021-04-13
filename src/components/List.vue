@@ -1,94 +1,24 @@
 <template>
-    <!-- <div class="container">
-        <ul class="list">
-        <li v-for="(item, index) in items" :key="index">
-           <div class="picture">
-               <img v-bind:src="item.url" alt="Recipe Image" srcset="">
-           </div>
-            <div class="title">
-                <h3>{{item.title}}</h3>
-                <p>{{item.description}}</p>
-            </div>
-            <div class="action">
-                <a class="material-icons">arrow_forward_ios </a>
-         
-            </div>
-          </li>
-    </ul>
-    </div> -->
-
-    <div class="card-container">
-            <div class="card">
+     <div class="card-container">
+            <div v-for="(item) in items" :key="item.row_id" class="card">
                 <div class="card-body">
-                <img src="https://www.cookwithmanali.com/wp-content/uploads/2020/05/Masala-Dosa.jpg" />
-                <h3>Title</h3>
-                <p>Description .......</p>
+                <router-link :to="{path: '/recipe/' + item.row_id}">
+                    <img :src="item.url" />
+                </router-link>
+                <h2>{{item.name}}</h2>
+                <p class="desc"> {{item.procedure.substring(0,100)}}</p>
             </div>
             <div class="card-action">
                 <span class="material-icons">
                     edit
                 </span>
                 <span class="material-icons">
-                    delete-outline
+                    delete
                 </span>
 
             </div>
         </div>
-
-          <div class="card">
-                <div class="card-body">
-                <img src="https://www.cookwithmanali.com/wp-content/uploads/2020/05/Masala-Dosa.jpg" />
-                <h3>Title</h3>
-                <p>Description .......</p>
-            </div>
-            <div class="card-action">
-                <span class="material-icons">
-                    edit
-                </span>
-                <span class="material-icons">
-                    delete-outline
-                </span>
-
-            </div>
-        </div>
-
-          <div class="card" style="background-size:cover; background:url('https://www.cookwithmanali.com/wp-content/uploads/2020/05/Masala-Dosa.jpg')">
-                <div class="card-body">
-                <img src="" />
-                <h3>Title</h3>
-                <p>Description .......</p>
-            </div>
-            <div class="card-action">
-                <span class="material-icons">
-                    edit
-                </span>
-                <span class="material-icons">
-                    delete-outline
-                </span>
-
-            </div>
-        </div>
-
-          <div class="card">
-                <div class="card-body">
-                <img src="https://www.cookwithmanali.com/wp-content/uploads/2020/05/Masala-Dosa.jpg" />
-                <h3>Title</h3>
-                <p>Description .......</p>
-            </div>
-            <div class="card-action">
-                <span class="material-icons">
-                    edit
-                </span>
-                <span class="material-icons">
-                    delete-outline
-                </span>
-
-            </div>
-        </div>
-        
-    </div>
-    
-
+     </div>
 </template>
 
 <script>
@@ -103,6 +33,7 @@ export default {
     }
 }
 </script>
+
 <style scoped>
 
 .card-container{
@@ -113,57 +44,40 @@ export default {
 }
 
 .card{
-    background:#42b983; 
+    background:#1f1e1e; 
     order:4;
     margin:20px;  
     width:300px; 
+    border-radius: 20px;
+    border: .5px solid #1f1e1e;
+    box-shadow: -0.5rem 0.5rem 2rem 0rem #0b0909
 }
 
-img{width:300px; 
-height:300px}
-
-
-
-
-li{
-    display: grid;
-   grid-template-columns: auto auto auto;
-    grid-gap: 10px;
-    padding: 5px;
-    border:1px solid rgb(218, 215, 215); 
-    margin:5px; 
-    box-shadow: 0 8px 6px 0px rgb(211, 211, 211);
-    
-}
- ul{
-     padding:0px; 
-     margin:20px;
-     
- }
-
-/* img{
-    width:85px; 
-    height: 85px;
-    border-radius:5px;
-} */
-
-.picture {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.card img{
+    width:300px; 
+    height:300px;
+    border: solid .5px #1f1e1e;
+    border-radius: 20px 20px 0px 0px;
 }
 
-.action {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.card-action{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 3rem;
+    border-top: 3px solid #4c4b4b;
+    font-size: 28px;
 }
-.title {
-  text-align: left;
-  
+
+.card-action span{
+    font-size: 28px;
 }
-.container{
-    max-width: 800px;
-    margin:0 auto; 
+
+
+
+.desc{
+    height:90px; 
+    font-size:18px; 
 }
+
 </style>

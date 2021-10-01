@@ -1,8 +1,6 @@
 <template>
-<div class="main">
-   <div class="container">
-        <div v-if="editRecipe" class="edit-form">
-            <form v-on:submit="updateRecipe">
+    <div>
+        <form v-on:submit="updateRecipe">
                 <h2>Edit Recipe</h2>
                 <div class="inputs">
                     <h3>Recipe Name:</h3>
@@ -83,63 +81,10 @@
             
                 </div>
            </form>
-        </div>
-        <div v-if="editRecipe == false && addIngredient == false"  class="read-view">
-            <img :src="url" alt="" style="">
-            <div class="title">
-                <h2>{{name}}</h2>
-                <span @click="editMode" class=" action-icon material-icons material-icons-outlined">
-                 edit
-                </span>
-            </div>
-            
-            <div v-html="procedure" class="procedure">
-               
-            </div>
-            <div class="recipe-type">
-                <strong><h3>Reciepe Type:</h3> </strong>
-                <h4>{{type}}</h4>
-            </div>
-            
-            <div class="ingredients">
-            <div class="section">
-                <h2>Ingredients: </h2>
-                <span @click="addIngredients" class=" action-icon material-icons material-icons-outlined">
-                 add
-                </span>
-            </div>
-            
-                <div v-for="ingredient in ingredients" :key="ingredient.ingredient_id"> 
-                    <ul>
-                        <li>{{ingredient.ingredient}}</li>
-                        <li class="right">{{ingredient.qty}}</li>
-                        <li >{{ingredient.measure}}</li>
-                    </ul>
-                    
-                </div>
-            </div>
-            
-            
-        </div>
-        <div v-if="editRecipe == false && addIngredient == true" class="add-ing">
-            <lookup> </lookup>
-            <h3>Ingredient:</h3>
-                <input type="text" name="name" id="name" v-model="ingredientSearch"  v-on:change="searchIngredients">
-            <Button @click="submitIngredient" :buttonText="'Save'" :backgroundColor="'crimson'"></Button>
-            
-            <Button @click="cancelAdd" :buttonText="'Cancel'" :backgroundColor="'grey'"></Button>
-            
-        </div>
     </div>
-</div>
- 
-    
-
-    
 </template>
 <script>
 import Button from "../components/button.vue"; 
-import Lookup from "../components/lookup.vue"; 
 import 'devextreme/dist/css/dx.common.css';
 
 import 'devextreme/dist/css/dx.dark.css';
@@ -147,41 +92,34 @@ import { DxSelectBox } from 'devextreme-vue/select-box';
 import { DxHtmlEditor, DxToolbar, DxItem,  } from 'devextreme-vue/html-editor';
 
 export default {
-components:{
+    components:{
     Button, 
     DxHtmlEditor, 
     DxToolbar, 
     DxItem, 
-    DxSelectBox, 
-    Lookup
+    DxSelectBox
 }, 
-
-  props:{
-     
-  }, 
-  data(){ 
-        return {
-            id: String, 
+    props:{
+             id: String, 
         name: String, 
         type: String, 
         procedure: String, 
         url:String, 
         ingredients:Array, 
-        ingredientSearch: String, 
-        submitIngredient: String, 
-        editRecipe: false, 
-        addIngredient: false, 
+       
+    }, 
+    data(){ 
+    return{
         sizeValues: ['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt'],
       fontValues: ['Arial', 'Courier New', 'Georgia', 'Impact', 'Lucida Console', 'Tahoma', 'Times New Roman', 'Verdana'],
       headerValues: [false, 1, 2, 3, 4, 5],
       isMultiline: true, 
       typeOptions: [{ID:1, Name: "Entry" }, {ID:2, Name: "Breakfast" }, {ID:3, Name: "Appitizer" }, {ID:4, Name: "Drinks" }]
-       
-       }
         
+    }
     }, 
     methods: {
-         updateRecipe()
+        updateRecipe()
         {
             
             console.log(this.name, this.procedure, this.url); 
@@ -207,188 +145,7 @@ components:{
             alert("unable to uodate recipe: " + err); 
         })
         
-        }, 
-        editMode(){
-            this.editRecipe = true; 
-        }, 
-        cancelEdit()
-        {
-            this.editRecipe= false; 
-        }, 
-        addIngredients()
-        {
-            this.addIngredient = true; 
-        }, 
-        cancelAdd()
-        {
-            this.addIngredient = false; 
-        }, 
-        searchIngredients(){
-            console.log(this.ingredientSearch); 
-        }
-    }, 
-    mounted(){
-        fetch('http://localhost:4000/api/recipe/' + this.$route.params.id)
-        .then(response => response.text())
-        .then(data => {
-            var res = JSON.parse(data); 
-            res = res.recipe; 
-            this.id=res.row_id; 
-            this.name=res.name; 
-            this.type=res.type; 
-            this.procedure = res.procedure; 
-            this.url = res.url; 
-            this.ingredients = res.ingredients; 
-            if(this.$route.query.edit  == "true")
-            this.editRecipe = true; 
-        }).catch(err => console.log("error getting data >> ", err )); 
-        
-    }
-   
-    
+        } 
+    },
 }
 </script>
-
-<style scoped>
-.main{
-    display: flex;
-    justify-content: center;
-}
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin:30px 20px; 
-    width:90%; 
-  border-radius: 20px;
-    border: .5px solid #1f1e1e;
-    box-shadow: -0.5rem 0.5rem 2rem 0rem #0b0909; 
-    flex-wrap: wrap;
-  
-   background: #272626;
-   
-}
-
-
-.container img{
-    width:90%; 
-    max-width:800px; 
-    border: solid .5px #1f1e1e;
-    border: .5px solid #1f1e1e;
-    box-shadow: -0.5rem 0.5rem 2rem 0rem #0b0909; 
-   margin-top:20px; 
-}
-
-ul{
-      display: grid;
-  grid-template-columns: 50% 15% 15%;
-   padding:0px 3rem; 
-    gap: 10px; 
-
-
-}
-
-li{
-    text-decoration: none;
-    list-style: none;
-    color:white; 
-}
-
-.right{
-    text-align: right;
-}
-
-.procedure {
- text-align:left; 
- word-break:break-all;
- margin:20px; 
-}
-.procedure p{
-    font-size: 24px;
-}
-
- p::first-letter{
- font-size:80px;
- font-style: italic;
- text-transform: capitalize;
-}
-
-.ingredients{
-    text-align: left;
-}
-.ingredients h2{
-    padding:20px; 
-}
-
-.title {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.action-icon:hover{
- cursor: pointer;
-}
-input{
-   
-    height:30px; 
-    font-size: 20px;
-    border-radius: 5px;
-    padding:10px 20px; 
-}
-
-textarea{
-    font-family: inherit;
-    font-size: 20px;
-    border-radius: 5px;
-    padding:10px 20px; 
-}
-.inputs{
-   display:grid; 
-   grid-template-columns: 30% auto;
-   padding: 10px;
-   width:90%; 
-   text-align:right; 
-   grid-row-gap:20px; 
-   grid-column-gap:30px; 
-   align-items: center;
-   
-}
-
-.action{
-    display:flex; 
-    justify-content: space-around;
-    gap:30px;
-    margin:20px; 
-}
-
-.edit-form{
-    width:95%; 
-}
-
-@media only screen and (max-width: 768px) {
-    .inputs{
-   display:grid; 
-   grid-template-columns: auto;
-   
-
-   text-align:left; 
-   grid-row-gap:5px; 
-   grid-column-gap:10px; 
-   align-items: center;
-   
-}
-h3{
-    margin-bottom:0px; 
-}
-}
-
-.recipe-type{
-    text-align:left; 
-    display: flex;
-    margin:20px; 
-    gap:15px; 
-}
-
-
-
-</style>

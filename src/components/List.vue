@@ -6,12 +6,17 @@
                     <img :src="item.url" />
                 </router-link>
                 <h2>{{item.name}}</h2>
-                <p class="desc"> {{item.procedure.substring(0,100)}}</p>
+               <!-- {{item.procedure.substring(0,100)}} -->
+                <p class="desc" v-html="item.procedure.substring(0,100)"> </p>
+                 <h4>{{item.type}}</h4>
             </div>
             <div class="card-action">
-                <span class="material-icons">
+                <router-link class="brand-link" :to=" {path:`/recipe/${item.row_id}`, query: {edit: 'true'} }">
+                 <span class="material-icons">
                     edit
                 </span>
+                </router-link>
+               
                 <span class="material-icons">
                     delete
                 </span>

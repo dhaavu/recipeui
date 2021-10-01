@@ -8,11 +8,13 @@ const routes = [
     name: 'Home',
     component: Home
   },
+
   {
     path: '/recipe/:id',
     name: 'recipeDetails',
     component: recipeDetails
   },
+ 
   {
     path: '/about',
     name: 'About',

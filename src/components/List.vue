@@ -5,10 +5,13 @@
                 <router-link :to="{path: '/recipe/' + item.row_id}">
                     <img :src="item.url" />
                 </router-link>
-                <h2>{{item.name}}</h2>
+                <div class="info">
+                     <h2>{{item.name}}</h2>
                <!-- {{item.procedure.substring(0,100)}} -->
                 <p class="desc" v-html="item.procedure.substring(0,100)"> </p>
                  <h4>{{item.type}}</h4>
+                </div>
+               
             </div>
             <div class="card-action">
                 <router-link class="brand-link" :to=" {path:`/recipe/${item.row_id}`, query: {edit: 'true'} }">
@@ -85,4 +88,13 @@ export default {
     font-size:18px; 
 }
 
+.info {
+    margin:15px; 
+
+}
+.info h2 {
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+}
 </style>

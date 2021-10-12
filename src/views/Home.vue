@@ -24,7 +24,7 @@ export default {
   },
   
     mounted() {
-    fetch("http://localhost:4000/api/recipe")
+    fetch("https://zen-recipe.herokuapp.com/api/recipe")
       .then((response) => response.text()).then(data => {
         this.responseData = JSON.parse(data).recipe; 
         this.responseData.forEach(element => {

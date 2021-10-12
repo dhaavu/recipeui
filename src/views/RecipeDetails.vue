@@ -215,7 +215,7 @@ components:{
                 id: this.id
                 
             }
-            fetch('http://localhost:4000/api/recipe/'+this.id , {
+            fetch('https://zen-recipe.herokuapp.com/api/recipe/'+this.id , {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
@@ -261,7 +261,7 @@ components:{
           data.measure = this.uom; 
         
           console.log(data); 
-           var resp =  await fetch('http://localhost:4000/api/recipe/ingredient/new/', {
+           var resp =  await fetch('https://zen-recipe.herokuapp.com/api/recipe/ingredient/new/', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',
@@ -271,7 +271,7 @@ components:{
         }); 
            var respData = await resp.json(); 
            console.log(respData); 
-           fetch('http://localhost:4000/api/recipe/' + this.$route.params.id)
+           fetch('https://zen-recipe.herokuapp.com/api/recipe/' + this.$route.params.id)
         .then(response => response.text())
         .then(data => {
             var res = JSON.parse(data); 
@@ -290,7 +290,7 @@ components:{
         }, 
         async deleteIngredient(ingredientId){
             console.log(url); 
-            var url = 'http://localhost:4000/api/recipe/ingredient/' + ingredientId; 
+            var url = 'https://zen-recipe.herokuapp.com/api/recipe/ingredient/' + ingredientId; 
             console.log(url); 
             var del = await fetch(url,  {
                 method: 'DELETE'
@@ -303,7 +303,7 @@ components:{
         }
     }, 
     mounted(){
-        fetch('http://localhost:4000/api/recipe/' + this.$route.params.id)
+        fetch('https://zen-recipe.herokuapp.com/api/recipe/' + this.$route.params.id)
         .then(response => response.text())
         .then(data => {
             var res = JSON.parse(data); 

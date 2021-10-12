@@ -39,7 +39,7 @@ methods: {
         if(this.currentValue == ''){
             this.ingredients = []; 
         }else {
-             var resp = await fetch('http://localhost:4000/api/ingredient')
+             var resp = await fetch('https://zen-recipe.herokuapp.com/api/ingredient')
             var arr = await resp.json(); 
             this.ingredients = arr.ingredient; 
 
@@ -61,7 +61,7 @@ methods: {
              this.$emit('update', this.currentValue, this.currentId); 
     }, 
     async addIngredient(){
-        const rawResponse = await fetch('http://localhost:4000/api/ingredient/new/', {
+        const rawResponse = await fetch('https://zen-recipe.herokuapp.com/api/ingredient/new/', {
             method: 'POST',
             headers: {
             'Accept': 'application/json',

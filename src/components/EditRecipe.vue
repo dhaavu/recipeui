@@ -131,7 +131,7 @@ export default {
                 id: this.id
                 
             }
-            fetch('http://localhost:4000/api/recipe/'+this.id , {
+            fetch('https://zen-recipe.herokuapp.com/api/recipe/'+this.id , {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'

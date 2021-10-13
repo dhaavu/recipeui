@@ -313,7 +313,7 @@ components:{
             this.type=res.type; 
             this.procedure = res.procedure; 
             this.url = res.url; 
-            this.ingredients = res.ingredients.filter(ingredient => ingredient.ingredient_id = null); 
+            this.ingredients = res.ingredients.filter(ingredient => ingredient.ingredient_id != null); 
             if(this.$route.query.edit  == "true")
             this.editRecipe = true; 
             console.log('Ingredients' + this.ingredients); 
